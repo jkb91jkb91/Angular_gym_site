@@ -1,0 +1,15 @@
+FROM node:19
+
+# Ustaw katalog roboczy
+WORKDIR /app
+
+
+
+COPY package_express.json /app/package.json
+RUN npm install
+
+RUN apt-get update \
+    && apt-get install -y iputils-ping
+
+COPY . .
+CMD ["tail", "-f", "/dev/null"]

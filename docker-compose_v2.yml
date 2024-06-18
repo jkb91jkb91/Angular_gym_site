@@ -1,0 +1,61 @@
+version: '3'
+
+services:
+  angular:
+    container_name: angular-nginx
+    image: jkb91/angular:11.0
+    ports:
+      - "80:80" #
+    depends_on:
+      - myrb
+      - memcached
+      - db
+
+  db:
+    container_name: db
+    image: jkb91/postgress:1.0
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin123
+      POSTGRES_DB: testing_db
+    ports:
+    - 5000:5432
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "root@root.com"
+      PGADMIN_DEFAULT_PASSWORD: "root"
+    ports:
+      - "5050:80"
+    depends_on:
+      - db
+  django:
+    container_name: django
+    restart: always
+    links:
+      - db:db
+    image: jkb91/django:6.0 
+    environment:
+      - DJANGO_HOST=djangoMa
+    depends_on:
+      - db
+
+  myrb:
+    container_name: myrb
+    image: rabbitmq:3-management
+    hostname: rb
+    environment:
+      RABBITMQ_DEFAULT_VHOST: my_vhost
+      RABBITMQ_DEFAULT_USER: user
+      RABBITMQ_DEFAULT_PASS: password
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+  memcached:
+    container_name: memcached
+    image: memcached:1.6.1
+    ports:
+     - "11211:11211"
+

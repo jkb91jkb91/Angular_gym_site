@@ -1,0 +1,15 @@
+<div class="row">
+    <div class="col-xs-12">
+        <button class="btn btn-success" (click)="onNewTraining()">New Training</button>
+    </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-xs-12">
+        <app-training-item 
+         *ngFor="let trainingElement of trainings; let i = index" 
+         [training]="trainingElement"
+         [index]="i">
+        </app-training-item>
+    </div>
+</div>

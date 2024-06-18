@@ -1,0 +1,25 @@
+# Default values for mychart.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+angular:
+  image: jkb91/angular:10.0
+
+django:
+  image: jkb91/django:5.0
+  tag: 5.0
+
+memcached:
+  image: memcached
+  tag: 1.6.1
+
+rabbit:
+  image: rabbitmq
+  tag: 3-management
+
+pgadmin:
+  image: dpage/pgadmin4
+  tag: 4.30
+
+postgres:
+  image: jkb91/postgress:1.0
+  tag: 1.0

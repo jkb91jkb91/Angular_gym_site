@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: memcached-deployment
+  namespace: testing
+spec:
+  replicas: 1  # Możesz dostosować liczbę replik według potrzeb
+  selector:
+    matchLabels:
+      app: memcached
+  template:
+    metadata:
+      labels:
+        app: memcached
+    spec:
+      containers:
+      - name: memcached
+        image: memcached:1.6.1
+        ports:
+        - containerPort: 11211
+        resources:
+          limits:
+            memory: "64Mi"  # Dostosuj limity zasobów według potrzeb
+          requests:
+            memory: "32Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: memcached
+  namespace: testing
+spec:
+  selector:
+    app: memcached
+  ports:
+    - protocol: TCP
+      port: 11211
+      targetPort: 11211
+  type: ClusterIP

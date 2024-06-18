@@ -1,0 +1,71 @@
+version: '3'
+
+services:
+  angular:
+    networks:
+      - mynetwork
+    build:
+     context: .
+     dockerfile: Dockerfile.angular
+    volumes:
+      - .:/app
+    ports:
+      - "4200:4200"
+    depends_on:
+      - my_rb
+      - memcached
+      - db
+
+  db:
+    networks:
+      - mynetwork
+    image: postgres:15.0
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: admin123
+      POSTGRES_DB: testing_db
+    ports:
+    - 5000:5432
+    volumes:
+     - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+  django:
+    restart: always
+    networks:
+      - mynetwork
+    links:
+      - db:db
+    build:
+     context: ../Django_Website/
+     dockerfile: ../Django_Website/Dockerfile.django
+    ports:
+     - "8000:8000"
+    volumes:
+      - ../Django_Website:/app
+    environment:
+      - DJANGO_HOST=djangoMa
+    depends_on:
+      - db
+
+  my_rb:
+    networks:
+      - mynetwork
+    image: rabbitmq:3-management
+    hostname: rb
+    environment:
+      RABBITMQ_DEFAULT_VHOST: my_vhost
+      RABBITMQ_DEFAULT_USER: user
+      RABBITMQ_DEFAULT_PASS: password
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+  memcached:
+    networks:
+      - mynetwork
+    image: memcached:1.6.1
+    ports:
+     - "11211:11211"
+
+
+networks:
+  mynetwork:
+      driver: bridge

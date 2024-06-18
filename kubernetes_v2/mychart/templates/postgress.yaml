@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgresql-deployment
+  namespace: testing
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgresql
+  template:
+    metadata:
+      labels:
+        app: postgresql
+    spec:
+      containers:
+      - name: postgresql
+        image: "{{.Values.postgres.image}}"
+        ports:
+        - containerPort: 5432
+        env:
+        - name: POSTGRES_PASSWORD
+          value: admin123
+        - name: POSTGRES_DB
+          value: testing_db
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: db-pvc
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: db    # Zmieniamy nazwę usługi na "db"
+  namespace: testing
+spec: 
+  selector:
+    app: postgresql 
+  ports:  
+    - protocol: TCP 
+      port: 5432
+      targetPort: 5432
+  type: ClusterIP

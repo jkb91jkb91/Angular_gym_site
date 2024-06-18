@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rabbitmq-deployment
+  namespace: testing
+spec:
+  replicas: 1  # Możesz dostosować liczbę replik według potrzeb
+  selector:
+    matchLabels:
+      app: myrb
+  template:
+    metadata:
+      labels:
+        app: myrb
+    spec:
+      containers:
+      - name: myrb
+        image: "{{ .Values.rabbit.image }}:{{ .Values.rabbit.tag }}"
+        env:
+          - name: RABBITMQ_DEFAULT_VHOST
+            value: my_vhost
+          - name: RABBITMQ_DEFAULT_USER
+            value: user
+          - name: RABBITMQ_DEFAULT_PASS
+            value: password
+        ports:
+        - containerPort: 5672
+        - containerPort: 15672
+        resources:
+          limits:
+            memory: "256Mi"  # Dostosuj limity zasobów według potrzeb
+          requests:
+            memory: "128Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: myrb
+  namespace: testing
+spec:
+  selector:
+    app: myrb
+  ports:
+   - name: rabbitmq-port
+     protocol: TCP
+     port: 5672
+     targetPort: 5672
+   - name: rabbitmq-management-port
+     protocol: TCP
+     port: 15672
+  type: ClusterIP
+
+
