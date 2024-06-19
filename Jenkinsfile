@@ -1,6 +1,8 @@
 pipeline {
     agent any
-  
+    environment {
+        DOCKER_REGISTRY = 'http://13.60.25.250:8082'  // Twój rejestr Docker
+    }
     triggers {
         GenericTrigger(
             genericVariables: [
@@ -66,11 +68,13 @@ pipeline {
       stage('Docker pull images') {
         steps {
             script {
-                withDockerRegistry(credentialsId: 'jfrog', url: 'http://13.60.25.250:8082') {
-                        // Możesz wykonać dowolne operacje związane z Dockerem tutaj
-                        sh 'docker pull angular_prod/angular:1.0'
-                        sh 'docker images'
-                }
+                withCredentials([usernamePassword(credentialsId: 'jfrog', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                        // Logujemy się do rejestru Docker
+                        sh '''
+                            echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin ${DOCKER_REGISTRY}
+                            docker pull angular_prod/angular:1.0
+                            docker images
+                        '''
             }
         }
     }
