@@ -67,16 +67,16 @@ pipeline {
         }
 
       stage('Docker pull images') {
-            steps {
-                script {
-                    docker.withRegistry(DOCKER_REGISTRY, DOCKER_USERNAME, DOCKER_PASSWORD) {
+        steps {
+            script {
+                withDockerRegistry(credentialsId: 'jfrog', url: 'http://13.60.25.250:8082') {
                         // Możesz wykonać dowolne operacje związane z Dockerem tutaj
-                        docker pull angular_prod/angular:1.0
-                        docker images
-                    }
+                        sh 'docker pull angular_prod/angular:1.0'
+                        sh 'docker images'
                 }
             }
         }
+    }
         stage('SEND DOCKER IMAGE TO REPO and MERGE CODE TO GITHUB') {
             steps {
                 script {
