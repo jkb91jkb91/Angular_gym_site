@@ -58,6 +58,7 @@ pipeline {
                     sh 'ls'
                     sh 'docker --version'
                     sh 'cat /etc/docker/daemon.json'
+                    sh 'docker info | grep "Insecure Registries"'
                 }
             }
         }
