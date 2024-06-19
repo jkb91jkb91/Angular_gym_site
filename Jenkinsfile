@@ -71,12 +71,21 @@ pipeline {
                         sh '''
                             docker login -u admin -p Gowno123 http://13.60.25.250:8082
                             docker pull 13.60.25.250:8082/angular_prod/angular:1.0
+                            docker pull 13.60.25.250:8082/django_prod/django:1.0
+                            docker pull 13.60.25.250:8082/postgress_prod/postgress:1.0
                             docker images
                         '''
                 }
             }
+          }
         }
-    }
+         stage('List files') {
+            steps {
+                script {
+                    sh 'docker images'
+                }
+            }
+        }
         stage('SEND DOCKER IMAGE TO REPO and MERGE CODE TO GITHUB') {
             steps {
                 script {
