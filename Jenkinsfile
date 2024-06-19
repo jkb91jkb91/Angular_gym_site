@@ -1,5 +1,12 @@
 pipeline {
     agent any
+  
+        environment {
+            DOCKER_REGISTRY = 'http://13.60.25.250:8082'  
+            DOCKER_USERNAME = 'admin' 
+            DOCKER_PASSWORD = 'Gowno123*' 
+        }
+  
     triggers {
         GenericTrigger(
             genericVariables: [
@@ -55,6 +62,18 @@ pipeline {
             steps {
                 script {
                     sh 'ls'
+                }
+            }
+        }
+
+      stage('Docker pull images') {
+            steps {
+                script {
+                    docker.withRegistry(DOCKER_REGISTRY, DOCKER_USERNAME, DOCKER_PASSWORD) {
+                        // Możesz wykonać dowolne operacje związane z Dockerem tutaj
+                        sh 'docker pull angular_prod/angular:1.0'
+                        sh 'docker images'
+                    }
                 }
             }
         }
