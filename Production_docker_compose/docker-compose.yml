@@ -3,7 +3,7 @@ version: '3'
 services:
   angular:
     container_name: angular-nginx
-    image: 16.16.58.172:8082/angular_prod/angular:1.0
+    image: 13.60.25.250:8082/angular_prod/angular:1.0
     ports:
       - "80:80" #
     depends_on:
@@ -13,7 +13,7 @@ services:
 
   db:
     container_name: db
-    image: 16.16.58.172:8082/postgress_prod/postgress:1.0
+    image: 13.60.25.250:8082/postgress_prod/postgress:1.0
     restart: always
     environment:
       POSTGRES_USER: postgres
@@ -36,7 +36,7 @@ services:
     restart: always
     links:
       - db:db
-    image: 16.16.58.172:8082/django_prod/django:1.0
+    image: 13.60.25.250:8082/django_prod/django:1.0
     environment:
       - DJANGO_HOST=djangoMa
     depends_on:
