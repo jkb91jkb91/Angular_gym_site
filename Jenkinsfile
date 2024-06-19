@@ -48,7 +48,7 @@ pipeline {
                           doGenerateSubmoduleConfigurations: false, 
                           extensions: [[$class: 'CloneOption', depth: 1]], 
                           submoduleCfg: [], 
-                          userRemoteConfigs: [[url: 'https://github.com/your/repository.git']]])
+                          userRemoteConfigs: [[url: 'https://github.com/jkb91jkb91/Angular_gym_site_forking.git']]])
             }
         }
        stage('List files') {
