@@ -70,7 +70,7 @@ pipeline {
                         // Logujemy się do rejestru Docker
                         sh '''
                             docker login -u admin -p Gowno123 http://13.60.25.250:8082
-                            docker pull angular_prod/angular:1.0
+                            docker pull 13.60.25.250:8082/angular_prod/angular:1.0
                             docker images
                         '''
                 }
