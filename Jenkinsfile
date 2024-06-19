@@ -79,11 +79,11 @@ pipeline {
             }
           }
         }
-         stage('List Images') {
+         stage('Run docker compose') {
             steps {
                 script {
-                    sh 'docker images'
-                    sh 'ls'
+                    sh 'cd Production_docker_compose'
+                    sh 'docker-compose up -d'
                 }
             }
         }
