@@ -41,25 +41,23 @@ pipeline {
                 }
             }
         }
-        stage('GET REPO') {
+        stage('Checkout') {
             steps {
-                echo "STAGE REPO"  
+                checkout([$class: 'GitSCM', 
+                          branches: [[name: '*/master']], 
+                          doGenerateSubmoduleConfigurations: false, 
+                          extensions: [[$class: 'CloneOption', depth: 1]], 
+                          submoduleCfg: [], 
+                          userRemoteConfigs: [[url: 'https://github.com/your/repository.git']]])
             }
         }
-       // stage('SONARQUBE') {
-       //     steps {
-       //         script {
-                        ///DOCKER HAS TO BE INSTALLED HERE
-       //         }  
-       //     }
-       // }
-       // stage('DOCKER BUILD ') {
-       //     steps {
-       //         script {
-                        ///DOCKER HAS TO BE INSTALLED HERE
-       //         }  
-       //      }
-       // }
+       stage('List files') {
+            steps {
+                script {
+                    sh 'ls'
+                }
+            }
+        }
         stage('SEND DOCKER IMAGE TO REPO and MERGE CODE TO GITHUB') {
             steps {
                 script {
