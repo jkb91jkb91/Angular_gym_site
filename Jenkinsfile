@@ -71,8 +71,8 @@ pipeline {
                 script {
                     docker.withRegistry(DOCKER_REGISTRY, DOCKER_USERNAME, DOCKER_PASSWORD) {
                         // Możesz wykonać dowolne operacje związane z Dockerem tutaj
-                        sh 'docker pull angular_prod/angular:1.0'
-                        sh 'docker images'
+                        docker pull angular_prod/angular:1.0
+                        docker images
                     }
                 }
             }
