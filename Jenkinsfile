@@ -1,12 +1,6 @@
 pipeline {
     agent any
   
-        environment {
-           DOCKER_REGISTRY = 'http://13.60.25.250:8082'
-           DOCKER_USERNAME = 'admin'
-           DOCKER_PASSWORD = 'Gowno123'  
-        }
-  
     triggers {
         GenericTrigger(
             genericVariables: [
