@@ -83,6 +83,7 @@ pipeline {
             steps {
                 script {
                     sh 'docker images'
+                    sh 'ls'
                 }
             }
         }
