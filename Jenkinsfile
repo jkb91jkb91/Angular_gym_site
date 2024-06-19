@@ -75,6 +75,7 @@ pipeline {
                             docker pull angular_prod/angular:1.0
                             docker images
                         '''
+                }
             }
         }
     }
