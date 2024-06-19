@@ -79,7 +79,7 @@ pipeline {
             }
           }
         }
-         stage('List files') {
+         stage('List Images') {
             steps {
                 script {
                     sh 'docker images'
