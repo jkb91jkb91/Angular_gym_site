@@ -71,7 +71,7 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'jfrog', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                         // Logujemy się do rejestru Docker
                         sh '''
-                            docker login -u admin -p Gowno123 http://13.60.25.250:8082
+                            echo cos
                         '''
                 }
             }
@@ -80,7 +80,7 @@ pipeline {
          stage('Cypress tests') {
             steps {
                 script {
-                    sh 'export NVM_DIR="/root/.nvm"'
+                    sh 'docker login -u admin -p Gowno123 http://13.60.25.250:8082'
                     sh 'cd Production_docker_compose'
                     sh 'docker-compose -f Production_docker_compose/docker-compose_prod.yml up -d'
                     sh 'cd ..'
