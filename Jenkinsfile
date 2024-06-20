@@ -82,7 +82,7 @@ pipeline {
                 script {
                     sh 'cd Production_docker_compose'
                     sh 'docker-compose -f Production_docker_compose/docker-compose_prod.yml up -d'
-                    sh 'cd .. && rm -rf cypress_e2e_tests'
+                    sh 'cd .. && rm -rf cypress_e2e_tests.git'
                     sh 'git clone git@github.com:jkb91jkb91/cypress_e2e_tests.git && cd cypress_e2e_tests'
                     sh '/root/.nvm/versions/node/v14.21.3/bin/npx cypress run'
     
