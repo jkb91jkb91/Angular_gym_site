@@ -28,9 +28,9 @@ pipeline {
                     def result 
                     result = sh(script: '''
                         PAYLOAD="$payload" 
-                        KEYS=$(echo "$PAYLOAD" | jq -r 'keys[]' )
-                        ACTION=$(echo "$PAYLOAD" | jq -r '.action')
-                        PullRequestNumber=$(echo "$PAYLOAD" | jq -r '.number')
+                        KEYS=$(echo "$PAYLOAD" | jq -r 'keys[]' > /dev/null)
+                        ACTION=$(echo "$PAYLOAD" | jq -r '.action' > /dev/null)
+                        PullRequestNumber=$(echo "$PAYLOAD" | jq -r '.number' > /dev/null)
                         echo "KEYS: $KEYS"
                         echo "PullRequestNumber=$PullRequestNumber"
                         echo "ACTION: $ACTION"
@@ -47,7 +47,7 @@ pipeline {
                 }
             }
         }
-        stage('Checkout') {
+        stage('Checkout Ansible Repo') {
             steps {
                 checkout([$class: 'GitSCM', 
                           branches: [[name: '*/master']], 
