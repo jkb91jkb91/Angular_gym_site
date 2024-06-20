@@ -67,19 +67,7 @@ pipeline {
             }
         }
 
-      stage('Docker pull images') {
-        steps {
-            script {
-                withCredentials([usernamePassword(credentialsId: 'jfrog', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                        // Logujemy się do rejestru Docker
-                        sh '''
-                            echo cos
-                        '''
-                }
-            }
-          }
-        }
-         stage('Cypress tests') {
+      stage('Cypress tests') {
             steps {
                 script {
                     sh 'docker login -u admin -p Gowno123 http://13.60.25.250:8082'
