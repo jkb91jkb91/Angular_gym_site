@@ -28,9 +28,9 @@ pipeline {
                     def result 
                     result = sh(script: '''
                         PAYLOAD="$payload" 
-                        KEYS=$(echo "$PAYLOAD" | jq -r 'keys[]' > /dev/null)
-                        ACTION=$(echo "$PAYLOAD" | jq -r '.action' > /dev/null)
-                        PullRequestNumber=$(echo "$PAYLOAD" | jq -r '.number' > /dev/null)
+                        KEYS=$(echo "$PAYLOAD" | jq -r 'keys[]' > /dev/null 2>&1)
+                        ACTION=$(echo "$PAYLOAD" | jq -r '.action' > /dev/null 2>&1)
+                        PullRequestNumber=$(echo "$PAYLOAD" | jq -r '.number' > /dev/null 2>&1)
                         echo "KEYS: $KEYS"
                         echo "PullRequestNumber=$PullRequestNumber"
                         echo "ACTION: $ACTION"
