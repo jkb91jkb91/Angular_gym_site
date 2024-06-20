@@ -6,7 +6,6 @@ pipeline {
         NODE_VERSION = '14'
         NVM_DIR = "${HOME}/.nvm"
     }
-    }
     triggers {
         GenericTrigger(
             genericVariables: [
