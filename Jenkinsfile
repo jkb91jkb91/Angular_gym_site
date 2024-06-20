@@ -3,6 +3,9 @@ pipeline {
     agent any
     environment {
         DOCKER_REGISTRY = 'http://13.60.25.250:8082'  // Twój rejestr Docker
+        NODE_VERSION = '14'
+        NVM_DIR = "${HOME}/.nvm"
+    }
     }
     triggers {
         GenericTrigger(
@@ -59,7 +62,6 @@ pipeline {
             steps {
                 script {
                     sh 'echo hej'
-                    sh 'which npx'
                 }
             }
         }
@@ -81,10 +83,9 @@ pipeline {
                 script {
                     sh 'cd Production_docker_compose'
                     sh 'docker-compose -f Production_docker_compose/docker-compose_prod.yml up -d'
-                    sh 'which npx'
                     sh 'cd .. && rm -rf cypress_e2e_tests'
                     sh 'git clone git@github.com:jkb91jkb91/cypress_e2e_tests.git && cd cypress_e2e_tests'
-                    sh 'npx cypress run'
+                    sh '/root/.nvm/versions/node/v14.21.3/bin/npx cypress run'
     
                 }
             }
