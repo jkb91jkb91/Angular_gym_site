@@ -70,20 +70,19 @@ pipeline {
                         // Logujemy się do rejestru Docker
                         sh '''
                             docker login -u admin -p Gowno123 http://13.60.25.250:8082
-                            docker pull 13.60.25.250:8082/angular_prod/angular:1.0
-                            docker pull 13.60.25.250:8082/django_prod/django:1.0
-                            docker pull 13.60.25.250:8082/postgress_prod/postgress:1.0
-                            docker images
                         '''
                 }
             }
           }
         }
-         stage('Run docker compose') {
+         stage('Cypress tests') {
             steps {
                 script {
                     sh 'cd Production_docker_compose'
                     sh 'docker-compose up -d'
+                    sh 'cd .. && git clone git@github.com:jkb91jkb91/cypress_e2e_tests.git && cd cypress_e2e_tests'
+                    sh 'npx cypress run'
+    
                 }
             }
         }
