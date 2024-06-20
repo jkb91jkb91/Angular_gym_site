@@ -58,7 +58,8 @@ pipeline {
        stage('List files') {
             steps {
                 script {
-                    sh 'ls'
+                    sh 'echo hej'
+                    sh 'which npx'
                 }
             }
         }
