@@ -80,7 +80,7 @@ pipeline {
          stage('Cypress tests') {
             steps {
                 script {
-                    sh 'export NVM_DIR="$HOME/.nvm"'
+                    sh 'export NVM_DIR="/root/.nvm"'
                     sh 'cd Production_docker_compose'
                     sh 'docker-compose -f Production_docker_compose/docker-compose_prod.yml up -d'
                     sh 'cd ..'
