@@ -27,10 +27,12 @@ pipeline {
                 script {
                     def result 
                     result = sh(script: '''
+                        set +x
                         PAYLOAD="$payload" 
-                        KEYS=$(echo "$PAYLOAD" | jq -r 'keys[]' > /dev/null 2>&1)
-                        ACTION=$(echo "$PAYLOAD" | jq -r '.action' > /dev/null 2>&1)
-                        PullRequestNumber=$(echo "$PAYLOAD" | jq -r '.number' > /dev/null 2>&1)
+                        KEYS=$(echo "$PAYLOAD" | jq -r 'keys[]')
+                        ACTION=$(echo "$PAYLOAD" | jq -r '.action')
+                        PullRequestNumber=$(echo "$PAYLOAD" | jq -r '.number')
+                        set -x
                         echo "KEYS: $KEYS"
                         echo "PullRequestNumber=$PullRequestNumber"
                         echo "ACTION: $ACTION"
