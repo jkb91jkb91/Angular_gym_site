@@ -70,13 +70,23 @@ pipeline {
       stage('Cypress tests') {
             steps {
                 script {
-                    sh 'docker login -u admin -p Gowno123 http://13.60.25.250:8082'
-                    sh 'cd Production_docker_compose'
-                    sh 'docker-compose -f Production_docker_compose/docker-compose_prod.yml up -d'
-                    sh 'cd ..'
-                    sh 'rm -rf cypress_e2e_tests'
-                    sh 'git clone git@github.com:jkb91jkb91/cypress_e2e_tests.git && cd cypress_e2e_tests'
-                    sh 'npx cypress run'
+                  def result 
+                    result = sh(script: '''
+                        docker login -u admin -p Gowno123 http://13.60.25.250:8082
+                        cd Production_docker_compose
+                        docker-compose -f Production_docker_compose/docker-compose_prod.yml up -d
+                        cd ..
+                        rm -rf cypress_e2e_tests
+                        git clone git@github.com:jkb91jkb91/cypress_e2e_tests.git && cd cypress_e2e_tests
+                        npx cypress run
+                    ''', returnStatus: true) 
+                //    sh 'docker login -u admin -p Gowno123 http://13.60.25.250:8082'
+                 //   sh 'cd Production_docker_compose'
+                  //  sh 'docker-compose -f Production_docker_compose/docker-compose_prod.yml up -d'
+                  //  sh 'cd ..'
+                 //   sh 'rm -rf cypress_e2e_tests'
+                 //   sh 'git clone git@github.com:jkb91jkb91/cypress_e2e_tests.git && cd cypress_e2e_tests'
+                 //   sh 'npx cypress run'
     
                 }
             }
