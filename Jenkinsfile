@@ -77,7 +77,8 @@ pipeline {
                         cd ..
                         rm -rf cypress_e2e_tests
                         git clone git@github.com:jkb91jkb91/cypress_e2e_tests.git && cd cypress_e2e_tests
-                        npx cypress run
+                        npm install
+                        TERM=xterm npx cypress run --headless
                     ''', returnStatus: true) 
                 //    sh 'docker login -u admin -p Gowno123 http://13.60.25.250:8082'
                  //   sh 'cd Production_docker_compose'
