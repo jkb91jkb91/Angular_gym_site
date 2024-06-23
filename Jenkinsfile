@@ -1,6 +1,5 @@
 pipeline {
 
-  
     agent any
     environment {
         DOCKER_REGISTRY = 'http://13.60.25.250:8082'  // Twój rejestr Docker
