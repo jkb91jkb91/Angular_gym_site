@@ -72,7 +72,7 @@ pipeline {
                 script {
                   def result 
                     result = sh(script: '''
-                        docker login -u admin -p Gowno123 http://13.60.25.250:8082
+                        docker login -u admin -p Gowno123 http://16.170.201.82:8082
                         docker-compose -f Production_docker_compose/docker-compose_prod.yml up -d
                         cd ..
                         rm -rf cypress_e2e_tests
