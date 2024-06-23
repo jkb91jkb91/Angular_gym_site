@@ -79,7 +79,10 @@ pipeline {
                         git clone git@github.com:jkb91jkb91/cypress_e2e_tests.git && cd cypress_e2e_tests
                         npm install
                         TERM=xterm npx cypress run --headless
-                    ''', returnStatus: true) 
+                    ''', returnStatus: true)
+                    if (result != 0) {
+                        currentBuild.result = 'FAILURE'
+                    }
                 //    sh 'docker login -u admin -p Gowno123 http://13.60.25.250:8082'
                  //   sh 'cd Production_docker_compose'
                   //  sh 'docker-compose -f Production_docker_compose/docker-compose_prod.yml up -d'
