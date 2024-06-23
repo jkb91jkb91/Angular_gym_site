@@ -82,6 +82,7 @@ pipeline {
                     ''', returnStatus: true)
                     if (result != 0) {
                         currentBuild.result = 'FAILURE'
+                        error "Test section failed"
                     }
                 //    sh 'docker login -u admin -p Gowno123 http://13.60.25.250:8082'
                  //   sh 'cd Production_docker_compose'
