@@ -3,7 +3,9 @@ version: '3'
 services:
   angular:
     container_name: angular-nginx
-    image: 13.60.25.250:8082/angular_prod/angular:1.0
+    build:
+      context: ..
+      dockerfile: Dockerfile.angular
     ports:
       - "80:80" #
     depends_on:
