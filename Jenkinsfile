@@ -59,7 +59,6 @@ pipeline {
                           userRemoteConfigs: [[url: 'https://github.com/jkb91jkb91/Angular_gym_site_forking.git']]])
             }
         }
-
       stage('Cypress tests') {
             steps {
                 script {
@@ -77,18 +76,11 @@ pipeline {
                         currentBuild.result = 'FAILURE'
                         error "Test section failed"
                     }
-                //    sh 'docker login -u admin -p Gowno123 http://13.60.25.250:8082'
-                 //   sh 'cd Production_docker_compose'
-                  //  sh 'docker-compose -f Production_docker_compose/docker-compose_prod.yml up -d'
-                  //  sh 'cd ..'
-                 //   sh 'rm -rf cypress_e2e_tests'
-                 //   sh 'git clone git@github.com:jkb91jkb91/cypress_e2e_tests.git && cd cypress_e2e_tests'
-                 //   sh 'npx cypress run'
-    
                 }
             }
         }
-        stage('SEND DOCKER IMAGE TO REPO and MERGE CODE TO GITHUB') {
+        stage('MERGE PULL REQUEST and OPTIONALLY SEND DOCKER IMAGE TO ARTIFACTORY') {
+            // TO DO >> SEND DOCKER IMAGE TO ARTIFACTORY
             steps {
                 script {
                       def userInput = input(
