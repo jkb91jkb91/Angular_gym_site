@@ -1,11 +1,11 @@
 pipeline {
 
     agent any
-    environment {
-        DOCKER_REGISTRY = 'http://13.60.25.250:8082'  // Twój rejestr Docker
-        NODE_VERSION = '14'
-        NVM_DIR = "${HOME}/.nvm"
-    }
+    //environment {
+     //   DOCKER_REGISTRY = 'http://13.60.25.250:8082'  // Twój rejestr Docker
+      //  NODE_VERSION = '14'
+      //  NVM_DIR = "${HOME}/.nvm"
+    //}
     triggers {
         GenericTrigger(
             genericVariables: [
@@ -49,7 +49,7 @@ pipeline {
                 }
             }
         }
-        stage('Checkout Ansible Repo') {
+        stage('Checkout Angular Repo') {
             steps {
                 checkout([$class: 'GitSCM', 
                           branches: [[name: '*/master']], 
@@ -57,13 +57,6 @@ pipeline {
                           extensions: [[$class: 'CloneOption', depth: 1]], 
                           submoduleCfg: [], 
                           userRemoteConfigs: [[url: 'https://github.com/jkb91jkb91/Angular_gym_site_forking.git']]])
-            }
-        }
-       stage('List files') {
-            steps {
-                script {
-                    sh 'echo hej'
-                }
             }
         }
 
