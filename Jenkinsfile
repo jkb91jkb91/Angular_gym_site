@@ -1,11 +1,6 @@
 pipeline {
 
     agent any
-    //environment {
-     //   DOCKER_REGISTRY = 'http://13.60.25.250:8082'  // Twój rejestr Docker
-      //  NODE_VERSION = '14'
-      //  NVM_DIR = "${HOME}/.nvm"
-    //}
     triggers {
         GenericTrigger(
             genericVariables: [
